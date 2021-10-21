@@ -5,7 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.service.PersonService;
 
-import java.nio.file.Path;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,7 +19,7 @@ public class PersonController {
         this.personService = personService;
     }
     @PostMapping
-    public void addPerson(@RequestBody Person person){
+    public void addPerson(@Valid @NotNull @RequestBody Person person){
         personService.addPerson(person);
     }
     @GetMapping
@@ -35,7 +36,7 @@ public class PersonController {
         personService.deletePerson(id);
     }
     @PutMapping(path = "{id}")
-    public void updatePerson(@PathVariable("id") UUID id,@RequestBody Person person){
+    public void updatePerson(@PathVariable("id") UUID id,@Valid @NotNull @RequestBody Person person){
         personService.updatePerson(id,person);
     }
 
